@@ -1,3 +1,12 @@
 CovexHull
 
+My own implementations of
+1. ConvexHull problem
+2. Line drawing algorithm
+
+Dependencies:
+stb_image (http://nothings.org/stb_image.c)
+stb_image_write (http://nothings.org/stb/stb_image_write.h)
+
+Evgeny Pokhilko 
 Sydney 2013

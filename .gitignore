@@ -1,4 +1,7 @@
 debug/
 release/
+ipch/
+obj/
 *.sdf
+*.opensdf
 *.user

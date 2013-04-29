@@ -19,7 +19,7 @@ namespace {
 			<< "ConvexHullConsole.exe <PROCESSED_FILE.PNG> -o <OUTPUT_FILE.PNG>" << endl
 			<< endl
 			<< "Input: PROCESSED_FILE.PNG" << endl
-			<< "Output: creates PROCESSED_FILE(HULL).PNG in the same directory" << endl;
+			<< "Output: creates / overwrites OUTPUT_FILE.PNG" << endl;
 	}
 }
 

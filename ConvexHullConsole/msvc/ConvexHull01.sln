@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvexHullConsole", "ConvexHullConsole\ConvexHullConsole.vcxproj", "{34E10EB4-3F9F-4E98-B5BF-DA9EF7E48A4E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvexHullConsole", "ConvexHullConsole.vcxproj", "{34E10EB4-3F9F-4E98-B5BF-DA9EF7E48A4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

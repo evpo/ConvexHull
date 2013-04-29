@@ -15,45 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\source\convex_hull.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image.c">
+    <ClCompile Include="..\source\line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="point_loader.cpp">
+    <ClCompile Include="..\source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image_write.c">
+    <ClCompile Include="..\source\point_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convex_hull.cpp">
+    <ClCompile Include="..\deps\stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="line.cpp">
+    <ClCompile Include="..\deps\stb_image_write.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="point_loader.h">
+    <ClInclude Include="..\source\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
+    <ClInclude Include="..\source\convex_hull.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image_write.h">
+    <ClInclude Include="..\source\line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="convex_hull.h">
+    <ClInclude Include="..\source\point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="point.h">
+    <ClInclude Include="..\source\point_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="line.h">
+    <ClInclude Include="..\deps\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
+    <ClInclude Include="..\deps\stb_image_write.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

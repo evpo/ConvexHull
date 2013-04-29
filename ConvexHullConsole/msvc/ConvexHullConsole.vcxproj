@@ -51,7 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\source;..\deps</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -82,8 +82,14 @@
     <ClCompile Include="..\source\line.cpp" />
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\point_loader.cpp" />
-    <ClCompile Include="..\deps\stb_image.c" />
-    <ClCompile Include="..\deps\stb_image_write.c" />
+    <ClCompile Include="..\deps\stb_image.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\deps\stb_image_write.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\common.h" />
@@ -93,6 +99,9 @@
     <ClInclude Include="..\source\point_loader.h" />
     <ClInclude Include="..\deps\stb_image.h" />
     <ClInclude Include="..\deps\stb_image_write.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\README" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

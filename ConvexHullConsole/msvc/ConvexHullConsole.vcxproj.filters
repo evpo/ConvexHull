@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="deps">
+      <UniqueIdentifier>{d77c470b-c098-4b8e-b93e-d40e31177614}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\convex_hull.cpp">
@@ -27,11 +30,11 @@
     <ClCompile Include="..\source\point_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\deps\stb_image.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\deps\stb_image_write.c">
-      <Filter>Source Files</Filter>
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\deps\stb_image.c">
+      <Filter>deps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,10 +54,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\deps\stb_image.h">
-      <Filter>Header Files</Filter>
+      <Filter>deps</Filter>
     </ClInclude>
     <ClInclude Include="..\deps\stb_image_write.h">
-      <Filter>Header Files</Filter>
+      <Filter>deps</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\README" />
   </ItemGroup>
 </Project>

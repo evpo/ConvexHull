@@ -16,5 +16,8 @@ Dependencies:
 stb_image (http://nothings.org/stb_image.c)
 stb_image_write (http://nothings.org/stb/stb_image_write.h)
 
+Downloads:
+http://sourceforge.net/projects/convexhull/files/
+
 Evgeny Pokhilko 
 Sydney 2013

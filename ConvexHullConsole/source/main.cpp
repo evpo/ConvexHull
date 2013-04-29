@@ -13,13 +13,16 @@ using namespace std;
 namespace {
 	void PrintDescription()
 	{
-		cout << "Draws convex hull in an image file" << endl
+		cout << "Draws the convex hull on an image." << endl
 			<< endl
 			<< "Usage:" << endl
-			<< "ConvexHullConsole.exe <PROCESSED_FILE.PNG> -o <OUTPUT_FILE.PNG>" << endl
+			<< "ConvexHullConsole.exe <INPUT_FILE> -o <OUTPUT_FILE>" << endl
 			<< endl
-			<< "Input: PROCESSED_FILE.PNG" << endl
-			<< "Output: creates / overwrites OUTPUT_FILE.PNG" << endl;
+			<< "Remarks:" << endl
+			<< "All non-white points are points."
+			<< endl;
+			
+			
 	}
 }
 

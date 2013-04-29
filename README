@@ -1,7 +1,7 @@
 CovexHull
 
 My own implementations of
-1. ConvexHull problem
+1. Convex Hull problem
 2. Line drawing algorithm
 
 The C++ code is simple to read and understand. The complexity is O(N) when the points are sorted by one coordinate. 

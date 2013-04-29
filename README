@@ -1,8 +1,16 @@
 CovexHull
 
 My own implementations of
-1. ConvexHull problem
+1. Convex Hull problem
 2. Line drawing algorithm
+
+The C++ code is simple to read and understand. The complexity is O(N) when the points are sorted by one coordinate. 
+This console app opens an image file, draws the convex hull and creates an output image file. 
+
+The command line parameters:
+ConvexHullConsole.exe <IMAGE_FILE> -o <OUTPU_IMAGE_FILE>
+IMAGE_FILE can be in any format supported by the stb_image.c library (see the link below). 
+OUTPUT_IMAGE_FILE will be created in the same format.
 
 Dependencies:
 stb_image (http://nothings.org/stb_image.c)

@@ -29,7 +29,7 @@ public:
 	void Save();
 	void Put(Point point);
 protected:
-	virtual SharedPoint NextPointInternal();
+	virtual bool NextPointInternal(Point &point);
 private:
 	
 	std::string file_name_, target_file_;

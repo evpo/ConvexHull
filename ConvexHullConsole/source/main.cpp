@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 			++ it;
 			for(; it != point_list->end(); ++ it)
 			{
-				line.Draw(**lastIt, **it, loader);
+				line.Draw(*lastIt, *it, loader);
 				lastIt = it;
 			}
 		}

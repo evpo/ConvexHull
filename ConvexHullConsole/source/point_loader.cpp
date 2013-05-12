@@ -91,16 +91,17 @@ void PointLoader::Save()
 SharedPointVector PointLoader::CollectPoints()
 {
 	SharedPointVector point_vector = make_shared<vector<Point> >();
-	SharedPoint pt = NextPointInternal();
-	for(;pt.get() != nullptr; pt = NextPointInternal())
+	
+	Point pt;
+	while(NextPointInternal(pt))
 	{
-		point_vector->push_back(*pt);
+		point_vector->push_back(pt);
 	}
 	return point_vector;
 
 }
 
-SharedPoint PointLoader::NextPointInternal()
+bool PointLoader::NextPointInternal(Point &point)
 {
 	const int kCharsInPixel = 3;
 	bool is_white = true;
@@ -117,13 +118,12 @@ SharedPoint PointLoader::NextPointInternal()
 	}
 
 	if(eof_)
-		return SharedPoint();
+		return false;
 
 	++ point_count_;
 
-	return SharedPoint(
-		new Point(ConvertPosition2Point(position_ - pixel_length_, x_pixels_))
-		);
+	point = Point(ConvertPosition2Point(position_ - pixel_length_, x_pixels_));
+	return true;
 }
 
 

@@ -11,16 +11,14 @@ public:
 	ChException(const std::string &message):runtime_error(message){}
 };
 
-typedef std::shared_ptr<Point> SharedPoint;
-
 class PointQueue
 {
 public:
-	SharedPoint NextPoint()
+	bool NextPoint(Point &point)
 	{
-		return NextPointInternal();
+		return NextPointInternal(point);
 	}
 private:
-	virtual SharedPoint NextPointInternal() = 0;
+	virtual bool NextPointInternal(Point &point) = 0;
 };
 #endif // common_h__

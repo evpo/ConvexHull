@@ -7,8 +7,8 @@
 #ifndef CONVEX_HULL_H__
 #define CONVEX_HULL_H__
 
-typedef std::list<SharedPoint> PointList;
-typedef std::shared_ptr<std::list<SharedPoint> > SharedPointList;
+typedef std::list<Point> PointList;
+typedef std::shared_ptr<std::list<Point> > SharedPointList;
 
 class ConvexHull
 {
@@ -21,8 +21,8 @@ public:
 
 private:
 	// more than zero if p1->p2 Points higher than p2->p3
-	double compare_vectors(SharedPoint p1, SharedPoint p2, SharedPoint p3);
-	void ProcessPoint(SharedPointList list, SharedPoint p, SharedPoint next_p, bool is_top);
+	double compare_vectors(const Point &p1, const Point &p2, const Point &p3);
+	void ProcessPoint(SharedPointList list, const Point &p, const Point &next_p, bool is_top);
 };
 
 #endif // CONVEX_HULL_H__

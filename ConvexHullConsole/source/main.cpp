@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <ctime>
+#include <iterator>
 #include "common.h"
 #include "point_loader.h"
 #include "convex_hull.h"
@@ -66,18 +67,21 @@ int main(int argc, char **argv)
 		loader.Load();
 		PrintTimer("Loading the file", begin_clock);
 		
-		Line line;
-		ConvexHull convex_hull;
+		SharedPointVector points = loader.CollectPoints();
+		vector<Point> convex_points;
+		back_insert_iterator<vector<Point> > back_inserter(convex_points);
+
 		begin_clock = clock();
-		SharedPointList point_list = convex_hull.FindHull(loader);
+		FindHull(points->begin(), points->end(), back_inserter);
 		PrintTimer("FindHull", begin_clock);
 
-		if(point_list->size() >= 2)
+		Line line;
+		if(convex_points.size() >= 2)
 		{
-			PointList::const_iterator it = point_list->begin();
-			PointList::const_iterator lastIt = it;
+			vector<Point>::const_iterator it = convex_points.begin();
+			vector<Point>::const_iterator lastIt = it;
 			++ it;
-			for(; it != point_list->end(); ++ it)
+			for(; it != convex_points.end(); ++ it)
 			{
 				line.Draw(*lastIt, *it, loader);
 				lastIt = it;
@@ -88,7 +92,7 @@ int main(int argc, char **argv)
 
 		PrintTimer("Total ticks", total_begin);
 		cout << "Points = " << loader.get_point_count() << endl;
-		size_t convex_size = point_list->size();
+		size_t convex_size = convex_points.size();
 		if(convex_size > 0)
 			-- convex_size;
 		cout << "Convex Points = " << convex_size << endl;

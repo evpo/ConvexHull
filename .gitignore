@@ -3,5 +3,6 @@ release/
 ipch/
 obj/
 *.sdf
+*.suo
 *.opensdf
 *.user

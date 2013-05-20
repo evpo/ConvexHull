@@ -42,8 +42,13 @@ void FindHull(InItFirst in_first, InItLast in_last, OutIt out_it)
 	if(point_count == 2)
 		list.push_back(pr.second);
 
-	bool result = (point_count == 3);
-	-- point_count;
+	bool result = false;
+	if(point_count == 3)
+	{
+		result = true;
+		-- point_count; // it will increase again below
+	}
+	
 	while(result)
 	{
 		++ point_count;

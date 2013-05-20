@@ -6,8 +6,6 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include "stb_image.h"
-#include "stb_image_write.h"
 #include "point.h"
 #include "common.h"
 

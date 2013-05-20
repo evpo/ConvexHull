@@ -15,6 +15,7 @@ OUTPUT_IMAGE_FILE will be created in the same format.
 Dependencies:
 stb_image (http://nothings.org/stb_image.c)
 stb_image_write (http://nothings.org/stb/stb_image_write.h)
+Google C++ Testing Framework (https://code.google.com/p/googletest/) 
 
 Description:
 http://evpo.wordpress.com/2013/05/04/convex-hull/

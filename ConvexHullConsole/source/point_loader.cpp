@@ -1,10 +1,12 @@
 #include "point_loader.h"
 #include <sstream>
 #include <algorithm>
+#include <iterator>
 #include "Windows.h"
 #include "stb_image.h"
 #include "stb_image_write.h"
 #include "common.h"
+#include "point_iterator.h"
 
 using namespace std;
 
@@ -88,20 +90,7 @@ void PointLoader::Save()
 		throw ChException("PointLoader::Save: Cannot save image.");
 }
 
-SharedPointVector PointLoader::CollectPoints()
-{
-	SharedPointVector point_vector = make_shared<vector<Point> >();
-	
-	Point pt;
-	while(NextPointInternal(pt))
-	{
-		point_vector->push_back(pt);
-	}
-	return point_vector;
-
-}
-
-bool PointLoader::NextPointInternal(Point &point)
+bool PointLoader::NextPoint(Point &point)
 {
 	const int kCharsInPixel = 3;
 	bool is_white = true;
@@ -132,6 +121,15 @@ PointLoader::operator bool() const
 		return false;
 
 	return !eof_;
+}
+
+void PointLoader::CollectAllPoints( std::vector<Point> &collection )
+{
+	PointIterator<PointLoader> it(*this);
+	PointIterator<PointLoader> end;
+	back_insert_iterator<vector<Point> > inserter(collection);
+	vector<Point> vect(it, end);
+	//copy(it, end, inserter);
 }
 
 

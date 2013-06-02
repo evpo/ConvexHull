@@ -13,7 +13,7 @@
 #ifndef POINT_LOADER_H_
 #define POINT_LOADER_H_
 
-class PointLoader : public PointQueue
+class PointLoader
 {
 public:
 	int get_point_count()
@@ -24,17 +24,14 @@ public:
 	PointLoader(std::string file_name, std::string target_file);
 	~PointLoader();
 	void Load();
-	SharedPointVector CollectPoints();
+	void CollectAllPoints(std::vector<Point> &collection);
 	void Save();
 	void Put(Point point);
-
-	PointLoader& operator>>(Point& rhs);
+	virtual bool NextPoint(Point &point);
 	operator bool() const;
-
 protected:
-	virtual bool NextPointInternal(Point &point);
-private:
 	
+private:
 	std::string file_name_, target_file_;
 	unsigned char *data_;
 	bool loaded_, eof_;

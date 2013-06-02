@@ -63,8 +63,8 @@ TEST(point_iterator, providing_one_point)
 
 	ASSERT_NE(end_it, it);
 	
-	ASSERT_EQ(1.0, (*it).x);
-	ASSERT_EQ(2.0, (*it).y);
+	ASSERT_EQ(1.0, it->x);
+	ASSERT_EQ(2.0, it->y);
 	
 	it ++;
 	ASSERT_EQ(end_it, it);
@@ -87,28 +87,28 @@ TEST(point_iterator, providing_many_points)
 	PointIterator<FakeProvider> end_it;
 
 	ASSERT_NE(end_it, it);
-	ASSERT_EQ(1.0, (*it).x);
-	ASSERT_EQ(2.0, (*it).y);
+	ASSERT_EQ(1.0, it->x);
+	ASSERT_EQ(2.0, it->y);
 
 	it ++;
 	ASSERT_NE(end_it, it);
-	ASSERT_EQ(3.0, (*it).x);
-	ASSERT_EQ(4.0, (*it).y);
+	ASSERT_EQ(3.0, it->x);
+	ASSERT_EQ(4.0, it->y);
 
 	it ++;
 	ASSERT_NE(end_it, it);
-	ASSERT_EQ(5.0, (*it).x);
-	ASSERT_EQ(6.0, (*it).y);
+	ASSERT_EQ(5.0, it->x);
+	ASSERT_EQ(6.0, it->y);
 
 	it ++;
 	ASSERT_NE(end_it, it);
-	ASSERT_EQ(7.0, (*it).x);
-	ASSERT_EQ(8.0, (*it).y);
+	ASSERT_EQ(7.0, it->x);
+	ASSERT_EQ(8.0, it->y);
 
 	it ++;
 	ASSERT_NE(end_it, it);
-	ASSERT_EQ(9.0, (*it).x);
-	ASSERT_EQ(10.0, (*it).y);
+	ASSERT_EQ(9.0, it->x);
+	ASSERT_EQ(10.0, it->y);
 
 	it ++;
 	ASSERT_EQ(end_it, it);

@@ -14,7 +14,7 @@ public:
 	typedef Point value_type;
 	typedef Point &reference;
 	typedef Point *pointer;
-	typedef std::output_iterator_tag iterator_category;
+	typedef std::input_iterator_tag iterator_category;
 
 	PointIterator(PointProvider &point_provider):point_provider_(&point_provider)
 	{
@@ -69,6 +69,11 @@ public:
 	Point &operator*()
 	{
 		return value_;
+	}
+
+	Point *operator->()
+	{
+		return &value_;
 	}
 
 	bool operator==(const PointIterator<PointProvider> &rhs) const

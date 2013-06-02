@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <iterator>
 #include "point.h"
 #include "common.h"
 
@@ -26,6 +27,10 @@ public:
 	SharedPointVector CollectPoints();
 	void Save();
 	void Put(Point point);
+
+	PointLoader& operator>>(Point& rhs);
+	operator bool() const;
+
 protected:
 	virtual bool NextPointInternal(Point &point);
 private:

@@ -6,6 +6,7 @@
 #include <iterator>
 #include "common.h"
 #include "point_loader.h"
+#include "point_iterator.h"
 #include "convex_hull.h"
 #include "line.h"
 
@@ -67,12 +68,14 @@ int main(int argc, char **argv)
 		loader.Load();
 		PrintTimer("Loading the file", begin_clock);
 		
-		SharedPointVector points = loader.CollectPoints();
+		PointIterator<PointLoader> point_begin(loader);
+		PointIterator<PointLoader> point_end;
+
 		vector<Point> convex_points;
 		back_insert_iterator<vector<Point> > back_inserter(convex_points);
 
 		begin_clock = clock();
-		FindHull(points->begin(), points->end(), back_inserter);
+		FindHull(point_begin, point_end, back_inserter);
 		PrintTimer("FindHull", begin_clock);
 
 		Line line;

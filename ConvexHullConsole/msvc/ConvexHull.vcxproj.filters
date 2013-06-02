@@ -56,5 +56,8 @@
     <ClInclude Include="..\source\point_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\point_iterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

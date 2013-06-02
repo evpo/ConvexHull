@@ -81,6 +81,7 @@
     <ClInclude Include="..\source\convex_hull.h" />
     <ClInclude Include="..\source\line.h" />
     <ClInclude Include="..\source\point.h" />
+    <ClInclude Include="..\source\point_iterator.h" />
     <ClInclude Include="..\source\point_loader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

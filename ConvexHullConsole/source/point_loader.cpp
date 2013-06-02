@@ -126,5 +126,13 @@ bool PointLoader::NextPointInternal(Point &point)
 	return true;
 }
 
+PointLoader::operator bool() const
+{
+	if(!loaded_)
+		return false;
+
+	return !eof_;
+}
+
 
 

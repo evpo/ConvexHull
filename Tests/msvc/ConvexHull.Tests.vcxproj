@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\convex_hull_tests.cpp" />
+    <ClCompile Include="..\source\point_iterator_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ConvexHullConsole\msvc\ConvexHull.vcxproj">

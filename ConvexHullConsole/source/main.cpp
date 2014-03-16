@@ -26,11 +26,24 @@ namespace {
 	}
 }
 
+#ifdef PRINT_TIMING
 void PrintTimer(string what, clock_t begin)
 {
 	clock_t end = clock();
 	float diff = static_cast<float>(end) - static_cast<float>(begin);
 	cout << what << " = " << diff << endl;
+}
+#else
+void PrintTimer(string what, clock_t begin)
+{
+
+}
+#endif
+
+void run_find_hull(PointLoader &point_loader, vector<Point> &convex_points)
+{
+	back_insert_iterator<vector<Point> > back_inserter(convex_points);
+	FindHull(PointIterator<PointLoader>(point_loader), PointIterator<PointLoader>(), back_inserter);
 }
 
 int main(int argc, char **argv)
@@ -65,11 +78,10 @@ int main(int argc, char **argv)
 		begin_clock = clock();
 		loader.Load();
 		PrintTimer("Loading the file", begin_clock);
-		
 
 		vector<Point> convex_points;
 
-		begin_clock = clock();
+		//begin_clock = clock();
 		run_find_hull(loader, convex_points);
 
 		Line line;
@@ -101,9 +113,7 @@ int main(int argc, char **argv)
 	}
 
 	return 0;
-}void run_find_hull(PointLoader &point_loader, vector<Point> &convex_points)
-{
-	back_insert_iterator<vector<Point> > back_inserter(convex_points);
-	FindHull(PointIterator<PointLoader>(point_loader), PointIterator<PointLoader>(), back_inserter);
 }
+
+
 

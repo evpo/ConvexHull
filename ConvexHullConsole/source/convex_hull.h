@@ -24,7 +24,7 @@ bool PushPair(InItFirst &in_first, InItLast &in_last, std::pair<Point, Point> &p
 }
 
 template<typename InItFirst, typename InItLast, typename OutIt>
-void FindHull(InItFirst in_first, InItLast in_last, OutIt out_it)
+OutIt FindHull(InItFirst in_first, InItLast in_last, OutIt out_it)
 {
 	std::list<Point> list;
 	std::pair<Point, Point> pr;
@@ -63,7 +63,7 @@ void FindHull(InItFirst in_first, InItLast in_last, OutIt out_it)
 		list.push_back(list.front());
 	}
 
-	std::copy(list.begin(), list.end(), out_it);
+	return std::copy(list.begin(), list.end(), out_it);
 }
 
 #endif // CONVEX_HULL_H__

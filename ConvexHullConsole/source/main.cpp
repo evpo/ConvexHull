@@ -23,8 +23,6 @@ namespace {
 			<< "Remarks:" << endl
 			<< "All non-white points are points."
 			<< endl;
-			
-			
 	}
 }
 
@@ -68,15 +66,11 @@ int main(int argc, char **argv)
 		loader.Load();
 		PrintTimer("Loading the file", begin_clock);
 		
-		PointIterator<PointLoader> point_begin(loader);
-		PointIterator<PointLoader> point_end;
 
 		vector<Point> convex_points;
-		back_insert_iterator<vector<Point> > back_inserter(convex_points);
 
 		begin_clock = clock();
-		FindHull(point_begin, point_end, back_inserter);
-		PrintTimer("FindHull", begin_clock);
+		run_find_hull(loader, convex_points);
 
 		Line line;
 		if(convex_points.size() >= 2)
@@ -107,4 +101,9 @@ int main(int argc, char **argv)
 	}
 
 	return 0;
+}void run_find_hull(PointLoader &point_loader, vector<Point> &convex_points)
+{
+	back_insert_iterator<vector<Point> > back_inserter(convex_points);
+	FindHull(PointIterator<PointLoader>(point_loader), PointIterator<PointLoader>(), back_inserter);
 }
+

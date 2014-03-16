@@ -128,8 +128,7 @@ void PointLoader::CollectAllPoints( std::vector<Point> &collection )
 	PointIterator<PointLoader> it(*this);
 	PointIterator<PointLoader> end;
 	back_insert_iterator<vector<Point> > inserter(collection);
-	vector<Point> vect(it, end);
-	//copy(it, end, inserter);
+	copy(it, end, inserter);
 }
 
 

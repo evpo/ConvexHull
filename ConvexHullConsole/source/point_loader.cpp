@@ -30,6 +30,12 @@ void PointLoader::Load(){
 	{
 		throw ChException("Image file has no pixels");
 	}
+
+	agg_buffer_.attach(data_, x_pixels_, y_pixels_, x_pixels_ * pixel_length_);
+	pixf_ = unique_ptr<pixfmt_type>(new pixfmt_type(agg_buffer_));
+	rbase_ = unique_ptr<renbase_type>(new renbase_type(*pixf_));
+	rprimitives_ = unique_ptr<agg::renderer_primitives<renbase_type> >(
+		new agg::renderer_primitives<renbase_type>(*rbase_));
 }
 
 Point PointLoader::ConvertPosition2Point( int position, int x_pixels )
@@ -77,6 +83,22 @@ void PointLoader::Put( Point point )
 	data_[position] = 0x00; // this will make the point red
 	data_[position + 1] = 0xFF;
 	data_[position + 2] = 0xFF;
+}
+
+void PointLoader::MoveTo(Point point)
+{
+	rprimitives_->move_to(
+		rprimitives_->coord(point.x),
+		rprimitives_->coord(point.y)
+		);
+}
+
+void PointLoader::LineTo(Point point)
+{
+	rprimitives_->line_to(
+		rprimitives_->coord(point.x),
+		rprimitives_->coord(point.y)
+		);
 }
 
 void PointLoader::Save()

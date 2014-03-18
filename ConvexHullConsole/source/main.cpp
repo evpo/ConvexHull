@@ -84,16 +84,18 @@ int main(int argc, char **argv)
 		//begin_clock = clock();
 		run_find_hull(loader, convex_points);
 
-		Line line;
+		//Line line;
 		if(convex_points.size() >= 2)
 		{
 			vector<Point>::const_iterator it = convex_points.begin();
-			vector<Point>::const_iterator lastIt = it;
+			//vector<Point>::const_iterator lastIt = it;
+			loader.MoveTo(*it);
 			++ it;
 			for(; it != convex_points.end(); ++ it)
 			{
-				line.Draw(*lastIt, *it, loader);
-				lastIt = it;
+				loader.LineTo(*it);
+				//line.Draw(*lastIt, *it, loader);
+				//lastIt = it;
 			}
 		}
 

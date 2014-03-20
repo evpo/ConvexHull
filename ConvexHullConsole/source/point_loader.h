@@ -7,12 +7,9 @@
 #include <memory>
 #include <vector>
 #include <iterator>
-#include "agg_rendering_buffer.h"
-#include "agg_pixfmt_rgb.h"
-#include "agg_renderer_base.h"
-#include "agg_renderer_primitives.h"
 #include "point.h"
 #include "common.h"
+#include "renderer.h"
 
 #ifndef POINT_LOADER_H_
 #define POINT_LOADER_H_
@@ -32,22 +29,15 @@ public:
 	void Save();
 	void Put(Point point);
 	void MoveTo(Point point);
-	void LineTo(Point point);
+	void LineTo(Point point, bool last=false);
+	void Line(Point point1, Point point2, bool last = false);
 
 	virtual bool NextPoint(Point &point);
 	operator bool() const;
 protected:
 	
 private:
-	typedef agg::pixfmt_rgb24 pixfmt_type;
-	typedef agg::renderer_base<agg::pixfmt_rgb24> renbase_type;
-	enum {bytes_per_pixel = 3};
-
-	agg::rendering_buffer agg_buffer_;
-	std::unique_ptr<pixfmt_type> pixf_;
-	std::unique_ptr<renbase_type> rbase_;
-	std::unique_ptr<agg::renderer_primitives<renbase_type>> rprimitives_;
-
+	std::unique_ptr<IRenderer> renderer_;
 	std::string file_name_, target_file_;
 	unsigned char *data_;
 	bool loaded_, eof_;

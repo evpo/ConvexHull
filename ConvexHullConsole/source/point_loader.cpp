@@ -2,6 +2,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iterator>
+#include <memory>
 #include "Windows.h"
 #include "stb_image.h"
 #include "stb_image_write.h"
@@ -31,11 +32,7 @@ void PointLoader::Load(){
 		throw ChException("Image file has no pixels");
 	}
 
-	agg_buffer_.attach(data_, x_pixels_, y_pixels_, x_pixels_ * pixel_length_);
-	pixf_ = unique_ptr<pixfmt_type>(new pixfmt_type(agg_buffer_));
-	rbase_ = unique_ptr<renbase_type>(new renbase_type(*pixf_));
-	rprimitives_ = unique_ptr<agg::renderer_primitives<renbase_type> >(
-		new agg::renderer_primitives<renbase_type>(*rbase_));
+	renderer_ = RendererFactory::Create(data_, x_pixels_, y_pixels_, pixel_length_, x_pixels_ * pixel_length_);
 }
 
 Point PointLoader::ConvertPosition2Point( int position, int x_pixels )
@@ -87,18 +84,17 @@ void PointLoader::Put( Point point )
 
 void PointLoader::MoveTo(Point point)
 {
-	rprimitives_->move_to(
-		rprimitives_->coord(point.x),
-		rprimitives_->coord(point.y)
-		);
+	renderer_->MoveTo(point);
 }
 
-void PointLoader::LineTo(Point point)
+void PointLoader::LineTo(Point point, bool last)
 {
-	rprimitives_->line_to(
-		rprimitives_->coord(point.x),
-		rprimitives_->coord(point.y)
-		);
+	renderer_->LineTo(point, last);
+}
+
+void PointLoader::Line(Point point1, Point point2, bool last)
+{
+	renderer_->Line(point1, point2, last);
 }
 
 void PointLoader::Save()

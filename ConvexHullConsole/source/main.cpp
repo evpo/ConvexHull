@@ -93,7 +93,9 @@ int main(int argc, char **argv)
 			++ it;
 			for(; it != convex_points.end(); ++ it)
 			{
-				loader.LineTo(*it);
+				//loader.Line(*lastIt, *it);
+				bool last = (it + 1) == convex_points.end();
+				loader.LineTo(*it, last);
 				//line.Draw(*lastIt, *it, loader);
 				//lastIt = it;
 			}

@@ -29,8 +29,8 @@ public:
 	void Save();
 	void Put(Point point);
 	void MoveTo(Point point);
-	void LineTo(Point point, bool last=false);
-	void Line(Point point1, Point point2, bool last = false);
+	void LineTo(Point point);
+	void Render(double stroke_width, Color color);
 
 	virtual bool NextPoint(Point &point);
 	operator bool() const;

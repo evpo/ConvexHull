@@ -36,6 +36,12 @@
     <ClCompile Include="..\source\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\deps\agg-2.5\src\agg_vcgen_stroke.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\file_work.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deps\stb_image.h">
@@ -63,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\source\renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\file_work.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

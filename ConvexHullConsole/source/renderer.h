@@ -1,5 +1,7 @@
 #include <memory>
+#include <vector>
 #include "point.h"
+#include "common.h"
 
 
 #ifndef RENDERER
@@ -9,8 +11,8 @@ class IRenderer
 {
 public:
 	virtual void MoveTo(Point point) = 0;
-	virtual void LineTo(Point point, bool last=false) = 0;
-	virtual void Line(Point point1, Point point2, bool last = false) = 0;
+	virtual void LineTo(Point point) = 0;
+	virtual void Render(double stroke_width, Color color) = 0;
 	virtual ~IRenderer(){}
 	
 };

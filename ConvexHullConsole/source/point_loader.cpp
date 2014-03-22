@@ -71,6 +71,7 @@ PointLoader::~PointLoader()
 	stbi_image_free(data_);
 }
 
+//TODO: this for non AGG rendering. It will need to move out to another class when we support both implementations
 void PointLoader::Put( Point point )
 {
 	if(!loaded_)
@@ -87,14 +88,14 @@ void PointLoader::MoveTo(Point point)
 	renderer_->MoveTo(point);
 }
 
-void PointLoader::LineTo(Point point, bool last)
+void PointLoader::LineTo(Point point)
 {
-	renderer_->LineTo(point, last);
+	renderer_->LineTo(point);
 }
 
-void PointLoader::Line(Point point1, Point point2, bool last)
+void PointLoader::Render(double stroke_width, Color color)
 {
-	renderer_->Line(point1, point2, last);
+	renderer_->Render(stroke_width, color);
 }
 
 void PointLoader::Save()

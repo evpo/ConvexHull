@@ -4,87 +4,56 @@
 #include "agg_pixfmt_rgba.h"
 #include "agg_renderer_base.h"
 #include "agg_renderer_primitives.h"
+
+#include "agg_rasterizer_scanline_aa.h"
+#include "agg_scanline_u.h"
+#include "agg_path_storage.h"
+#include "agg_conv_stroke.h"
+#include "agg_renderer_scanline.h"
+
 #include "common.h"
 
 using namespace std;
 using namespace agg;
-//typedef agg::pixfmt_rgb24 pixfmt_type;
-	//typedef agg::renderer_base<agg::pixfmt_rgb24> renbase_type;
-	//enum {bytes_per_pixel = 3};
-
-	//agg::rendering_buffer agg_buffer_;
-	//std::unique_ptr<pixfmt_type> pixf_;
-	//std::unique_ptr<renbase_type> rbase_;
-	//std::unique_ptr<agg::renderer_primitives<renbase_type>> rprimitives_;
-
-	//agg_buffer_.attach(data_, x_pixels_, y_pixels_, x_pixels_ * pixel_length_);
-	//pixf_ = unique_ptr<pixfmt_type>(new pixfmt_type(agg_buffer_));
-	//rbase_ = unique_ptr<renbase_type>(new renbase_type(*pixf_));
-	//rprimitives_ = unique_ptr<agg::renderer_primitives<renbase_type> >(
-	//	new agg::renderer_primitives<renbase_type>(*rbase_));
-
-	//rprimitives_->line_to(
-	//	rprimitives_->coord(point.x),
-	//	rprimitives_->coord(point.y),
-	//	last
-	//	);
-
-		//rprimitives_->line(
-		//	rprimitives_->coord(point1.x),
-		//	rprimitives_->coord(point1.y),
-		//	rprimitives_->coord(point2.x),
-		//	rprimitives_->coord(point2.y),
-		//	last
-		//);
 
 template<class PixelFormat>
 class Renderer: public IRenderer
 {
 private:
-	typedef renderer_base<PixelFormat> RenbaseType;
-	
-	rendering_buffer agg_buffer_;
-	unique_ptr<PixelFormat> pixf_;
-	unique_ptr<RenbaseType> rbase_;
-	unique_ptr<renderer_primitives<RenbaseType>> rprimitives_;
+	agg::rendering_buffer agg_buffer_;
+	agg::path_storage path_storage_;
 
 public:
-	Renderer(unsigned char *buffer, int width, int height, int pixel_length, int stride)
+	Renderer(unsigned char *buffer, int width, int height, int pixel_length, int stride):
+		agg_buffer_(buffer, width, height, stride), path_storage_()
 	{
-		agg_buffer_.attach(buffer, width, height, stride);
-		pixf_ = unique_ptr<PixelFormat>(new PixelFormat(agg_buffer_));
-		rbase_ = unique_ptr<RenbaseType>(new RenbaseType(*pixf_));
-		rprimitives_ = unique_ptr<renderer_primitives<RenbaseType> >(
-			new renderer_primitives<RenbaseType>(*rbase_));
-		rprimitives_->line_color(renderer_primitives<RenbaseType>::color_type(0x00, 0xFF, 0xFF));
 	}
 
 	virtual void MoveTo(Point point)
 	{
-		rprimitives_->move_to(
-			rprimitives_->coord(point.x),
-			rprimitives_->coord(point.y)
-		);
+		path_storage_.move_to(point.x, point.y);
 	}
 
-	virtual void LineTo(Point point, bool last=false)
+	virtual void LineTo(Point point)
 	{
-		rprimitives_->line_to(
-			rprimitives_->coord(point.x),
-			rprimitives_->coord(point.y),
-			last
-		);
+		path_storage_.line_to(point.x, point.y);
 	}
 
-	virtual void Line(Point point1, Point point2, bool last = false)
+	virtual void Render(double stroke_width, Color color)
 	{
-		rprimitives_->line(
-			rprimitives_->coord(point1.x),
-			rprimitives_->coord(point1.y),
-			rprimitives_->coord(point2.x),
-			rprimitives_->coord(point2.y),
-			last
-		);
+		typedef agg::renderer_base<PixelFormat> RenbaseType;
+		
+		PixelFormat pixf(agg_buffer_);
+		RenbaseType rbase(pixf);
+
+		agg::rasterizer_scanline_aa<> ras;
+        agg::scanline_u8 sl;
+		
+		agg::conv_stroke<path_storage> stroke(path_storage_);
+		stroke.width(stroke_width);
+		
+		ras.add_path(stroke);
+		agg::render_scanlines_aa_solid(ras, sl, rbase, RenbaseType::color_type(color.r, color.g, color.b, color.a));
 	}
 
 };

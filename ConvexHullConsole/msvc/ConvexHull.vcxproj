@@ -66,6 +66,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\deps\agg-2.5\src\agg_vcgen_stroke.cpp" />
     <ClCompile Include="..\deps\stb_image.c">
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
@@ -73,6 +74,7 @@
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <ClCompile Include="..\source\convex_hull.cpp" />
+    <ClCompile Include="..\source\file_work.cpp" />
     <ClCompile Include="..\source\line.cpp" />
     <ClCompile Include="..\source\point_loader.cpp" />
     <ClCompile Include="..\source\renderer.cpp" />
@@ -82,6 +84,7 @@
     <ClInclude Include="..\deps\stb_image_write.h" />
     <ClInclude Include="..\source\common.h" />
     <ClInclude Include="..\source\convex_hull.h" />
+    <ClInclude Include="..\source\file_work.h" />
     <ClInclude Include="..\source\line.h" />
     <ClInclude Include="..\source\point.h" />
     <ClInclude Include="..\source\point_iterator.h" />

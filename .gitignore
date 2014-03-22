@@ -6,3 +6,4 @@ obj/
 *.suo
 *.opensdf
 *.user
+ConvexHullConsole/deps/agg-2.5/examples/

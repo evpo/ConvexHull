@@ -42,6 +42,9 @@
     <ClCompile Include="..\source\file_work.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deps\stb_image.h">
@@ -49,9 +52,6 @@
     </ClInclude>
     <ClInclude Include="..\deps\stb_image_write.h">
       <Filter>deps</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\common.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\source\convex_hull.h">
       <Filter>Header Files</Filter>
@@ -72,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\source\file_work.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ch_exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

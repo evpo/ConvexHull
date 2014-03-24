@@ -11,7 +11,8 @@
 #include "agg_conv_stroke.h"
 #include "agg_renderer_scanline.h"
 
-#include "common.h"
+#include "ch_exception.h"
+#include "color.h"
 
 using namespace std;
 using namespace agg;

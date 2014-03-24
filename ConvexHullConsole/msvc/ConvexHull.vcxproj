@@ -73,6 +73,7 @@
     <ClCompile Include="..\deps\stb_image_write.c">
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
+    <ClCompile Include="..\source\color.cpp" />
     <ClCompile Include="..\source\convex_hull.cpp" />
     <ClCompile Include="..\source\file_work.cpp" />
     <ClCompile Include="..\source\line.cpp" />
@@ -82,7 +83,8 @@
   <ItemGroup>
     <ClInclude Include="..\deps\stb_image.h" />
     <ClInclude Include="..\deps\stb_image_write.h" />
-    <ClInclude Include="..\source\common.h" />
+    <ClInclude Include="..\source\color.h" />
+    <ClInclude Include="..\source\ch_exception.h" />
     <ClInclude Include="..\source\convex_hull.h" />
     <ClInclude Include="..\source\file_work.h" />
     <ClInclude Include="..\source\line.h" />

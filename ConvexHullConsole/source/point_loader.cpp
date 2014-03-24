@@ -6,7 +6,8 @@
 #include "Windows.h"
 #include "stb_image.h"
 #include "stb_image_write.h"
-#include "common.h"
+#include "ch_exception.h"
+#include "color.h"
 #include "point_iterator.h"
 
 using namespace std;

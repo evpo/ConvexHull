@@ -1,5 +1,6 @@
 #include <string>
-#include "common.h"
+#include "ch_exception.h"
+#include "color.h"
 
 #ifndef FILE_WORK__
 #define FILE_WORK__

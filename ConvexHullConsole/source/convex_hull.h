@@ -3,7 +3,7 @@
 #include <list>
 #include <memory>
 #include <utility>
-#include "common.h"
+#include "ch_exception.h"
 
 #ifndef CONVEX_HULL_H__
 #define CONVEX_HULL_H__

@@ -1,7 +1,8 @@
 #include <memory>
 #include <vector>
 #include "point.h"
-#include "common.h"
+#include "ch_exception.h"
+#include "color.h"
 
 
 #ifndef RENDERER

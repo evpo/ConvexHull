@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\source\convex_hull_tests.cpp" />
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\parse_color_test.cpp" />
     <ClCompile Include="..\source\point_iterator_tests.cpp" />
   </ItemGroup>
   <ItemGroup>

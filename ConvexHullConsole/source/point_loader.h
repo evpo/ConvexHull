@@ -8,7 +8,8 @@
 #include <vector>
 #include <iterator>
 #include "point.h"
-#include "common.h"
+#include "ch_exception.h"
+#include "color.h"
 #include "renderer.h"
 
 #ifndef POINT_LOADER_H_

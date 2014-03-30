@@ -15,6 +15,7 @@
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\parse_color_test.cpp" />
     <ClCompile Include="..\source\point_iterator_tests.cpp" />
+    <ClCompile Include="..\source\point_loader_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ConvexHullConsole\msvc\ConvexHull.vcxproj">

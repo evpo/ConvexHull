@@ -1,31 +1,38 @@
-#include "point.h"
-
 #ifndef point_iterator_h__
 #define point_iterator_h__
 
+#include <iterator>
+#include "assert.h"
 // PointProvider access points:
-// bool PointProvider::NextPoint(Point &point)
+// PointInfo PointProvider::NextPoint()
+// bool PointProvider::operator bool()
 // operator bool() returns false when EOF or points are not available
-template<typename PointProvider>
+template<typename PointProvider, typename PointInfo>
 class PointIterator
 {
+private:
+	PointProvider *point_provider_;
+	PointInfo value_;
+
 public:
 	typedef char difference_type;
-	typedef Point value_type;
-	typedef Point &reference;
-	typedef Point *pointer;
+	typedef PointInfo value_type;
+	typedef PointInfo &reference;
+	typedef PointInfo *pointer;
 	typedef std::input_iterator_tag iterator_category;
 
+	// point_provider should be pointing to the starting point already
 	PointIterator(PointProvider &point_provider):point_provider_(&point_provider)
 	{
-		if(point_provider_ != NULL && !*point_provider_)
+		if(point_provider_ != nullptr && !*point_provider_)
 		{
-			point_provider_ = NULL;
+			point_provider_ = nullptr;
 		}
 
-		if(point_provider_ != NULL)
-			point_provider_->NextPoint(value_);
-
+		if(point_provider_ != nullptr)
+		{
+			value_ = point_provider_->GetPoint();
+		}
 	};
 
 	PointIterator(const PointIterator &copy)
@@ -34,7 +41,7 @@ public:
 		point_provider_ = copy.point_provider_;
 	}
 
-	PointIterator():point_provider_(NULL){};
+	PointIterator():point_provider_(nullptr){};
 
 	const PointIterator &operator=(const PointIterator &rhs)
 	{
@@ -47,54 +54,53 @@ public:
 		if(!point_provider_)
 			return *this;
 
-		if(!*point_provider_)
+		if(point_provider_->NextPoint())
 		{
-			value_ = Point();
-			point_provider_ = NULL;
-			return *this;
+			value_ = point_provider_->GetPoint();
 		}
-
-		point_provider_->NextPoint(value_);
+		else
+		{
+			point_provider_ = nullptr;
+		}
 
 		return *this;
 	}
 
 	PointIterator operator++(int)
 	{
+		assert(point_provider_);
 		PointIterator tmp = *this;
 		++ *this;
 		return tmp;
 	}
 
-	Point &operator*()
+	PointInfo &operator*()
 	{
+		assert(point_provider_);
 		return value_;
 	}
 
-	Point *operator->()
+	PointInfo *operator->()
 	{
-		return &value_;
+		return &(this->operator*());
 	}
 
-	bool operator==(const PointIterator<PointProvider> &rhs) const
+	bool operator==(const PointIterator<PointProvider, PointInfo> &rhs) const
 	{
-		return point_provider_ == rhs.point_provider_ && value_ == rhs.value_;
+		if(point_provider_ != rhs.point_provider_)
+			return false;
+		 
+		if(!point_provider_)
+			return true;
+
+		return  value_ == rhs.value_;
 	}
 
-	bool operator!=(const PointIterator<PointProvider> &rhs) const
+	bool operator!=(const PointIterator<PointProvider, PointInfo> &rhs) const
 	{
 		return !(*this == rhs);
 	}
 
-private:
-	PointProvider *point_provider_;
-	Point value_;
 };
-
-//template <typename PointProvider>
-//bool operator==(const PointIterator<PointProvider> &lhs, const PointIterator<PointProvider> &rhs)
-//{
-//	return lhs.point_provider_ == rhs.point_provider_ && lhs.value_ == rhs.value_;
-//}
 
 #endif // point_iterator_h__

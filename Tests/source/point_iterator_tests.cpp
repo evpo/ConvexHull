@@ -18,14 +18,16 @@ public:
 		it_ = points_.begin();
 	}
 
-	bool NextPoint(Point &point)
+	bool NextPoint()
 	{
-		if(!*this)
-			return false;
+		++ it_;
+		return it_ != points_.end();
+	}
 
-		point = *it_;
-		it_ ++;
-		return true;
+	Point GetPoint() const
+	{
+		assert(*this);
+		return *it_;
 	}
 
 	operator bool() const
@@ -44,8 +46,8 @@ TEST(point_iterator, empty_provider)
 	Point *points = NULL;
 	FakeProvider provider(points, points);
 	
-	PointIterator<FakeProvider> it(provider);
-	PointIterator<FakeProvider> end_it;
+	PointIterator<FakeProvider, Point> it(provider);
+	PointIterator<FakeProvider, Point> end_it;
 
 	ASSERT_EQ(end_it, it);
 }
@@ -58,8 +60,8 @@ TEST(point_iterator, providing_one_point)
 	};
 	FakeProvider provider(&points[0], &points[1]);
 
-	PointIterator<FakeProvider> it(provider);
-	PointIterator<FakeProvider> end_it;
+	PointIterator<FakeProvider, Point> it(provider);
+	PointIterator<FakeProvider, Point> end_it;
 
 	ASSERT_NE(end_it, it);
 	
@@ -83,8 +85,8 @@ TEST(point_iterator, providing_many_points)
 
 	FakeProvider provider(&points[0], &points[5]);
 
-	PointIterator<FakeProvider> it(provider);
-	PointIterator<FakeProvider> end_it;
+	PointIterator<FakeProvider, Point> it(provider);
+	PointIterator<FakeProvider, Point> end_it;
 
 	ASSERT_NE(end_it, it);
 	ASSERT_EQ(1.0, it->x);

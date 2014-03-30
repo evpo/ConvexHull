@@ -77,6 +77,7 @@
     <ClCompile Include="..\source\convex_hull.cpp" />
     <ClCompile Include="..\source\file_work.cpp" />
     <ClCompile Include="..\source\line.cpp" />
+    <ClCompile Include="..\source\point_iterator.cpp" />
     <ClCompile Include="..\source\point_loader.cpp" />
     <ClCompile Include="..\source\renderer.cpp" />
   </ItemGroup>
@@ -91,6 +92,7 @@
     <ClInclude Include="..\source\point.h" />
     <ClInclude Include="..\source\point_iterator.h" />
     <ClInclude Include="..\source\point_loader.h" />
+    <ClInclude Include="..\source\point_loader_nextpoint.h" />
     <ClInclude Include="..\source\renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

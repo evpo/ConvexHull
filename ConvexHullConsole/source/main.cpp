@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 			return -1;
 		}
 
-		Color rgba = {0xFF, 0x00, 0x00, 0x7F};
+		RgbaColor rgba (0xFF, 0x00, 0x00, 0x7F);
 		double stroke_width = 2.0;
 
 		string in_file, out_file;

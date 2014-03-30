@@ -3,7 +3,7 @@
 #include "color.h"
 
 using namespace std;
-
+typedef RgbaColor Color;
 
 TEST(parse_color, edge_cases_all_zeroes)
 {

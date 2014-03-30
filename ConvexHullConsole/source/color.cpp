@@ -2,13 +2,13 @@
 #include <sstream>
 #include "ch_exception.h"
 
-Color ParseColor(const std::string &rgba_str)
+RgbaColor ParseColor(const std::string &rgba_str)
 {
 	int length = rgba_str.length();
 	if(length != 6 && length != 8)
 		throw ChException("Invalid color"); 
 	
-	Color ret_val;
+	RgbaColor ret_val;
 	unsigned bytes;
 	std::istringstream stm(rgba_str);
 	stm >> std::hex >> bytes;

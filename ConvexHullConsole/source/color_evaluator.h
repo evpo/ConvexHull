@@ -9,8 +9,12 @@
 
 unsigned char GetColorRank(RgbaColor color)
 {
-	agg::gray8 agg_gray(agg::rgba(color.r, color.g, color.b, color.a));
-	return agg_gray.v;
+	double rank = 0.299*color.r + 0.587*color.g + 0.114*color.b;
+	assert(rank <= 255.0);
+	return static_cast<unsigned char>(rank);
+
+	//agg::gray8 agg_gray(agg::rgba(color.r, color.g, color.b, color.a));
+	//return agg_gray.v;
 }
 
 unsigned char GetColorRank(GreyColor color)

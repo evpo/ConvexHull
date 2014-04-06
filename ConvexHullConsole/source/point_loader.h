@@ -25,6 +25,7 @@
 #include "renderer.h"
 #include "point_loader_nextpoint.h"
 #include "point_iterator.h"
+#include "point_info_extractor.h"
 
 template<typename Color, typename Renderer>
 class PointLoader
@@ -44,6 +45,12 @@ public:
 	void Render(double stroke_width, Color color);
 	bool NextPoint();
 	Point GetPoint() const;
+	Color GetColor() const;
+	void ResetOffset()
+	{
+		position_ = 0;
+		eof_ = false;
+	}
 	operator bool() const;
 protected:
 	
@@ -51,10 +58,10 @@ private:
 	Renderer *renderer_;
 	unsigned char *data_;
 	bool eof_;
+	int position_;
 	int x_pixels_;
 	int y_pixels_;
 	int pixel_length_;
-	int position_;
 	int point_count_;
 
 	Point ConvertPosition2Point(int position, int x_pixels) const;
@@ -69,7 +76,6 @@ PointLoader<Color, Renderer>::PointLoader(unsigned char *data, int x_pixels, int
 	:data_(data), x_pixels_(x_pixels), y_pixels_(y_pixels), 
 	pixel_length_(pixel_length), position_(0), renderer_(renderer), eof_(false)
 {
-	NextPoint();
 }
 
 template<typename Color, typename Renderer>
@@ -150,6 +156,15 @@ Point PointLoader<Color, Renderer>::GetPoint() const
 }
 
 template<typename Color, typename Renderer>
+Color PointLoader<Color, Renderer>::GetColor() const
+{
+	assert(*this);
+	Point point = GetPoint();
+	return renderer_->GetPixelColor(
+		static_cast<int>(point.x), static_cast<int>(point.y));
+}
+
+template<typename Color, typename Renderer>
 PointLoader<Color, Renderer>::operator bool() const
 {
 	return !eof_;
@@ -158,8 +173,8 @@ PointLoader<Color, Renderer>::operator bool() const
 template<typename Color, typename Renderer>
 void PointLoader<Color, Renderer>::CollectAllPoints( std::vector<Point> &collection )
 {
-	PointIterator<PointLoader, Point> > it(*this);
-	PointIterator<PointLoader, Point> > end;
+	PointIterator<PointLoader, PointExtractor<PointLoader>> > it(*this);
+	PointIterator<PointLoader, PointExtractor<PointLoader>> > end;
 	std::back_insert_iterator<std::vector<Point> > inserter(collection);
 	std::copy(it, end, inserter);
 }

@@ -7,20 +7,23 @@
 // PointInfo PointProvider::NextPoint()
 // bool PointProvider::operator bool()
 // operator bool() returns false when EOF or points are not available
-template<typename PointProvider, typename PointInfo>
+template<typename PointProvider, typename PointInfoExtractor>
 class PointIterator
 {
-private:
-	PointProvider *point_provider_;
-	PointInfo value_;
-
 public:
+	typedef typename PointInfoExtractor::point_info PointInfo;
 	typedef char difference_type;
 	typedef PointInfo value_type;
 	typedef PointInfo &reference;
 	typedef PointInfo *pointer;
 	typedef std::input_iterator_tag iterator_category;
 
+private:
+	
+	PointProvider *point_provider_;
+	PointInfo value_;
+
+public:
 	// point_provider should be pointing to the starting point already
 	PointIterator(PointProvider &point_provider):point_provider_(&point_provider)
 	{
@@ -31,7 +34,7 @@ public:
 
 		if(point_provider_ != nullptr)
 		{
-			value_ = point_provider_->GetPoint();
+			value_ = PointInfoExtractor::GetPointInfo(*point_provider_);
 		}
 	};
 
@@ -56,7 +59,7 @@ public:
 
 		if(point_provider_->NextPoint())
 		{
-			value_ = point_provider_->GetPoint();
+			value_ = PointInfoExtractor::GetPointInfo(*point_provider_);
 		}
 		else
 		{
@@ -85,18 +88,15 @@ public:
 		return &(this->operator*());
 	}
 
-	bool operator==(const PointIterator<PointProvider, PointInfo> &rhs) const
+	bool operator==(const PointIterator<PointProvider, PointInfoExtractor> &rhs) const
 	{
-		if(point_provider_ != rhs.point_provider_)
-			return false;
-		 
-		if(!point_provider_)
-			return true;
+		// one of point providers must be nullptr. Comparison of non null point providers is not supported
+		assert(!point_provider_ || !rhs.point_provider_);
 
-		return  value_ == rhs.value_;
+		return !point_provider_ && !rhs.point_provider_;
 	}
 
-	bool operator!=(const PointIterator<PointProvider, PointInfo> &rhs) const
+	bool operator!=(const PointIterator<PointProvider, PointInfoExtractor> &rhs) const
 	{
 		return !(*this == rhs);
 	}

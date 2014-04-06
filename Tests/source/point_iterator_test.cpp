@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "point.h"
 #include "point_iterator.h"
+#include "point_info_extractor.h"
 
 using namespace std;
 
@@ -40,28 +41,30 @@ private:
 	vector<Point>::const_iterator it_;
 };
 
+typedef FakePointProvider<Point*> FakeProvider;
+typedef PointIterator<FakeProvider, PointExtractor<FakeProvider> > Iterator;
+
 TEST(point_iterator, empty_provider)
 {
-	typedef FakePointProvider<Point*> FakeProvider;
+	
 	Point *points = NULL;
 	FakeProvider provider(points, points);
 	
-	PointIterator<FakeProvider, Point> it(provider);
-	PointIterator<FakeProvider, Point> end_it;
+	Iterator it(provider);
+	Iterator end_it;
 
 	ASSERT_EQ(end_it, it);
 }
 
 TEST(point_iterator, providing_one_point)
 {
-	typedef FakePointProvider<Point*> FakeProvider;
 	Point points[] = {
 		Point(1.0, 2.0)
 	};
 	FakeProvider provider(&points[0], &points[1]);
 
-	PointIterator<FakeProvider, Point> it(provider);
-	PointIterator<FakeProvider, Point> end_it;
+	Iterator it(provider);
+	Iterator end_it;
 
 	ASSERT_NE(end_it, it);
 	
@@ -74,7 +77,6 @@ TEST(point_iterator, providing_one_point)
 
 TEST(point_iterator, providing_many_points)
 {
-	typedef FakePointProvider<Point*> FakeProvider;
 	Point points[] = {
 		Point(1.0, 2.0), 
 		Point(3.0, 4.0), 
@@ -85,8 +87,8 @@ TEST(point_iterator, providing_many_points)
 
 	FakeProvider provider(&points[0], &points[5]);
 
-	PointIterator<FakeProvider, Point> it(provider);
-	PointIterator<FakeProvider, Point> end_it;
+	Iterator it(provider);
+	Iterator end_it;
 
 	ASSERT_NE(end_it, it);
 	ASSERT_EQ(1.0, it->x);

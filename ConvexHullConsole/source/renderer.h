@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include <tuple>
+#include <limits>
 
 #include "agg_rendering_buffer.h"
 #include "agg_pixfmt_rgb.h"
@@ -28,6 +29,11 @@ namespace {
 		{
 			return AggColor(color.r, color.g, color.b, color.a);
 		}
+
+		static Color GetFromAggColor(AggColor agg_color)
+		{
+			return Color(agg_color.r, agg_color.g, agg_color.b, agg_color.a);
+		}
 	};
 
 	template<typename Color>
@@ -35,19 +41,37 @@ namespace {
 	{
 		static agg::gray8 Get(Color color)
 		{
-			return agg::gray8(0x00);
+			return agg::gray8(color.v, color.a);
+		}
+
+		static Color GetFromAggColor(agg::gray8 agg_color)
+		{
+			return Color(agg_color.v, agg_color.a);
 		}
 	};
+
 
 	template<typename Color>
 	struct GetPixelAggColorImpl<agg::gray16, Color>
 	{
+		// ratio = 0xFFFF/0xFF
+		static const unsigned max_16_ = 0xFFFFU;
+		static const unsigned max_8_ = 0xFFU;
+
 		static agg::gray16 Get(Color color)
 		{
-			return agg::gray16(0x00);
+			return agg::gray16(color.v * (max_16_/max_8_), color.a * (max_16_/max_8_));
+		}
+
+		static Color GetFromAggColor(agg::gray16 agg_color)
+		{
+
+			return Color(
+				static_cast<unsigned char>(agg_color.v / (max_16_/max_8_)), 
+				static_cast<unsigned char>(agg_color.a / (max_16_/max_8_))
+				);
 		}
 	};
-
 };
 
 template<typename PixelFormat, typename Color>
@@ -55,11 +79,12 @@ class Renderer
 {
 private:
 	agg::rendering_buffer agg_buffer_;
+	PixelFormat pixel_format_;
 	agg::path_storage path_storage_;
 
 public:
 	Renderer(unsigned char *buffer, int width, int height, int pixel_length, int stride):
-		agg_buffer_(buffer, width, height, stride), path_storage_()
+		agg_buffer_(buffer, width, height, stride), pixel_format_(agg_buffer_), path_storage_()
 	{
 	}
 
@@ -73,12 +98,17 @@ public:
 		path_storage_.line_to(point.x, point.y);
 	}
 
+	Color GetPixelColor(int x, int y) const
+	{
+		return GetPixelAggColorImpl<PixelFormat::color_type, Color>::GetFromAggColor(
+			pixel_format_.pixel(x, y));
+	}
+
 	void Render(double stroke_width, Color color)
 	{
 		typedef agg::renderer_base<PixelFormat> RenbaseType;
 		
-		PixelFormat pixf(agg_buffer_);
-		RenbaseType rbase(pixf);
+		RenbaseType rbase(pixel_format_);
 
 		agg::rasterizer_scanline_aa<> ras;
         agg::scanline_u8 sl;

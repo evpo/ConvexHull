@@ -86,10 +86,13 @@
     <ClInclude Include="..\deps\stb_image_write.h" />
     <ClInclude Include="..\source\color.h" />
     <ClInclude Include="..\source\ch_exception.h" />
+    <ClInclude Include="..\source\color_evaluator.h" />
+    <ClInclude Include="..\source\color_filtering.h" />
     <ClInclude Include="..\source\convex_hull.h" />
     <ClInclude Include="..\source\file_work.h" />
     <ClInclude Include="..\source\line.h" />
     <ClInclude Include="..\source\point.h" />
+    <ClInclude Include="..\source\point_info_extractor.h" />
     <ClInclude Include="..\source\point_iterator.h" />
     <ClInclude Include="..\source\point_loader.h" />
     <ClInclude Include="..\source\point_loader_nextpoint.h" />

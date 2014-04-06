@@ -25,19 +25,14 @@ struct RgbaColor
 };
 struct GreyColor
 {
-	//unsigned char v;
-	//unsigned char a;
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
+	unsigned char v;
 	unsigned char a;
 	
 	GreyColor(
-		unsigned char rp,
-		unsigned char gp,
-		unsigned char bp,
-		unsigned char ap)
-		:r(rp),g(gp),b(bp),a(ap)
+		unsigned char vp,
+		unsigned char ap
+		)
+		:v(vp), a(ap)
 	{
 	}
 

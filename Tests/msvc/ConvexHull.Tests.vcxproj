@@ -11,10 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\convex_hull_tests.cpp" />
+    <ClCompile Include="..\source\color_evaluator_test.cpp" />
+    <ClCompile Include="..\source\convex_hull_test.cpp" />
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\parse_color_test.cpp" />
-    <ClCompile Include="..\source\point_iterator_tests.cpp" />
+    <ClCompile Include="..\source\point_iterator_test.cpp" />
     <ClCompile Include="..\source\point_loader_test.cpp" />
   </ItemGroup>
   <ItemGroup>

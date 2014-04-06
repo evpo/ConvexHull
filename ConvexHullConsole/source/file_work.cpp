@@ -6,11 +6,15 @@
 #include "windows.h"
 #include "assert.h"
 #include "stb_image.h"
+#include "agg_color_gray.h"
 #include "point_loader.h"
 #include "convex_hull.h"
 #include "point_iterator.h"
 #include "renderer.h"
 #include "color.h"
+#include "point_info_extractor.h"
+#include "color_evaluator.h"
+#include "color_filtering.h"
 
 namespace {
 #ifdef PRINT_TIMING
@@ -49,7 +53,8 @@ namespace {
 	template<typename Color>
 	Color ConvertColor(RgbaColor color)
 	{
-		return Color(color.r, color.g, color.b, color.a);
+		//agg::gray8 agg_gray(agg::rgba(color.r, color.g, color.b, color.a));
+		return Color(0x00, 0xFF);
 	}
 
 	template<typename Color>
@@ -58,14 +63,27 @@ namespace {
 		return Color(color.r, color.g, color.b, color.a);
 	}
 
+	template<>
+	RgbaColor ConvertColor<RgbaColor>(RgbaColor color)
+	{
+		return color;
+	}
+
+	template<>
+	GreyColor ConvertColor<GreyColor>(GreyColor color)
+	{
+		return color;
+	}
+
 
 	template <typename Color, typename PixelFormat>
 	void DrawHullInFile(const FileParameters &fp)
 	{
-		typedef PointLoader<Color, Renderer<PixelFormat, Color> > loader_t;
-		typedef PointIterator<loader_t, Point> point_iterator_t;
-
-		//auto loader = LoaderFactory::Create(data_, x_pixels_, y_pixels_, pixel_length_, x_pixels_ * pixel_length_, rgba);
+		typedef Renderer<PixelFormat, Color> renderer_t;
+		typedef PointLoader<Color,  renderer_t> loader_t;
+		typedef PointIterator<loader_t, ColorExtractor<loader_t, Color>> point_iterator_t;
+		typedef ColorFilteredPointProvider<Color, renderer_t> color_filtered_point_provider_t;
+		typedef PointIterator<color_filtered_point_provider_t, PointExtractor<color_filtered_point_provider_t>> filtered_point_iterator_t;
 
 		Renderer<PixelFormat, Color> renderer(fp.buffer, fp.width, fp.height, fp.pixel_length, fp.stride);
 		loader_t loader(fp.buffer, fp.width, fp.height, fp.pixel_length, &renderer);
@@ -76,10 +94,14 @@ namespace {
 		PrintTimer("Loading the file", begin_clock);
 
 		std::vector<Point> convex_points;
-
-		//begin_clock = clock();
-		//PointIterator<PointLoader>(point_loader), PointIterator<PointLoader>()
-		RunFindHull(point_iterator_t(loader), point_iterator_t(), convex_points);
+		loader.NextPoint();
+		point_iterator_t begin_it(loader), end_it;
+		ColorEvaluator<Color> color_evaluator(begin_it, end_it);
+		loader.ResetOffset();
+		color_filtered_point_provider_t filter(color_evaluator, loader);
+		filter.NextPoint();
+		filtered_point_iterator_t filtered_begin_it(filter), filtered_end_it;
+		RunFindHull(filtered_begin_it, filtered_end_it, convex_points);
 
 		//Line line;
 		if(convex_points.size() >= 2)

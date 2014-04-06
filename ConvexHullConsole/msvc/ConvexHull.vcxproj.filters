@@ -86,5 +86,14 @@
     <ClInclude Include="..\source\point_loader_nextpoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\color_evaluator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\point_info_extractor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\color_filtering.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

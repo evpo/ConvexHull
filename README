@@ -24,6 +24,7 @@ ConvexHullConsole.exe <INPUT_FILE> -o <OUTPUT_FILE> [-c <RGBA>|<RGB>] [-w <STROK
   Default: 2.0
  
 INPUT_FILE can be in any format supported by the stb_image.c library (see the link below). 
+
 OUTPUT_FILE will be created in PNG format.
 
 Dependencies:
@@ -42,6 +43,9 @@ Evgeny Pokhilko (C)
 Sydney 2014
 
 Release notes:
+
+2014-05-05:
+  1. Previously the application draw a convex hull around pixels that are not white (0xFFFFFF). So for any picture with a background the convex hull was the square at the edges of the picture. Now we take the median color from a picture to identify which pixels to ignore. So for a yellow background and a black image the yellow pixels are ignored. For a white background and a yellow image, the white pixels are ignored.
 
 2014-03-26:
   1. Use AGG library for rasterization with higher quality and anti-aliasing.

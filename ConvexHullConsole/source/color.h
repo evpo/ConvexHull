@@ -23,12 +23,12 @@ struct RgbaColor
 
 	RgbaColor(){}
 };
-struct GreyColor
+struct GrayColor
 {
 	unsigned char v;
 	unsigned char a;
 	
-	GreyColor(
+	GrayColor(
 		unsigned char vp,
 		unsigned char ap
 		)
@@ -36,8 +36,9 @@ struct GreyColor
 	{
 	}
 
-	GreyColor(){}
-
+	GrayColor()
+	{
+	}
 };
 
 RgbaColor ParseColor(const std::string &rgba_str);

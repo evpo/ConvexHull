@@ -2,7 +2,11 @@
 #define color_evaluator_h__
 
 #include <vector>
+
+#pragma warning(push, 3)
 #include "agg_pixfmt_gray.h"
+#pragma warning(pop)
+
 #include "color.h"
 #include "point_iterator.h"
 #include "point_info_extractor.h"
@@ -17,7 +21,7 @@ unsigned char GetColorRank(RgbaColor color)
 	//return agg_gray.v;
 }
 
-unsigned char GetColorRank(GreyColor color)
+unsigned char GetColorRank(GrayColor color)
 {
 	return color.v;
 }
@@ -50,11 +54,12 @@ public:
 
 		assert(color_count <= array_length_);
 		
-		int i = 0;
+		unsigned char i = 0;
 		for(; color_count > 0; ++i)
 		{
 			if(!bitarray_[i])
 				continue;
+			
 			color_count -= 2;
 		}
 		threshold_rank_ = (i > 0) ? i - 1 : 0xFF;

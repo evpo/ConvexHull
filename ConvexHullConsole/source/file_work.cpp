@@ -6,7 +6,11 @@
 #include "windows.h"
 #include "assert.h"
 #include "stb_image.h"
+
+#pragma warning(push, 3)
 #include "agg_color_gray.h"
+#pragma warning(pop)
+
 #include "point_loader.h"
 #include "convex_hull.h"
 #include "point_iterator.h"
@@ -25,17 +29,19 @@ namespace {
 		cout << what << " = " << diff << endl;
 	}
 #else
+	#pragma warning(push)
+	#pragma warning(disable : 4100)
 	void PrintTimer(std::string what, clock_t begin)
 	{
 
 	}
+	#pragma warning(pop)
 #endif
 
 	template <typename PointIt>
 	void RunFindHull(PointIt begin, PointIt end, std::vector<Point> &convex_points)
 	{
 		std::back_insert_iterator<std::vector<Point> > back_inserter(convex_points);
-		//FindHull(PointIterator<PointLoader>(point_loader), PointIterator<PointLoader>(), back_inserter);
 		FindHull(begin, end, back_inserter);
 	}
 
@@ -50,15 +56,17 @@ namespace {
 		double stroke_width;
 	};
 
+	#pragma warning(push)
+	#pragma warning(disable:4100)
 	template<typename Color>
 	Color ConvertColor(RgbaColor color)
 	{
-		//agg::gray8 agg_gray(agg::rgba(color.r, color.g, color.b, color.a));
 		return Color(0x00, 0xFF);
 	}
+	#pragma warning(pop)
 
 	template<typename Color>
-	Color ConvertColor(GreyColor color)
+	Color ConvertColor(GrayColor color)
 	{
 		return Color(color.r, color.g, color.b, color.a);
 	}
@@ -70,7 +78,7 @@ namespace {
 	}
 
 	template<>
-	GreyColor ConvertColor<GreyColor>(GreyColor color)
+	GrayColor ConvertColor<GrayColor>(GrayColor color)
 	{
 		return color;
 	}
@@ -85,7 +93,7 @@ namespace {
 		typedef ColorFilteredPointProvider<Color, renderer_t> color_filtered_point_provider_t;
 		typedef PointIterator<color_filtered_point_provider_t, PointExtractor<color_filtered_point_provider_t>> filtered_point_iterator_t;
 
-		Renderer<PixelFormat, Color> renderer(fp.buffer, fp.width, fp.height, fp.pixel_length, fp.stride);
+		Renderer<PixelFormat, Color> renderer(fp.buffer, fp.width, fp.height, fp.stride);
 		loader_t loader(fp.buffer, fp.width, fp.height, fp.pixel_length, &renderer);
 
 		clock_t begin_clock = clock();
@@ -118,7 +126,7 @@ namespace {
 		loader.Render(fp.stroke_width, ConvertColor<Color>(fp.rgba));
 
 		PrintTimer("Total ticks", total_begin);
-		std::cout << "Points = " << loader.get_point_count() << std::endl;
+		//std::cout << "Points = " << loader.get_point_count() << std::endl;
 		size_t convex_size = convex_points.size();
 		if(convex_size > 0)
 			-- convex_size;
@@ -129,7 +137,6 @@ namespace {
 
 void DrawHullInFile(const std::string &in_file, const std::string &out_file, double stroke_width, RgbaColor rgba)
 {
-	clock_t total_begin = clock();
 	clock_t begin_clock;
 
 	begin_clock = clock();
@@ -154,10 +161,10 @@ void DrawHullInFile(const std::string &in_file, const std::string &out_file, dou
 	switch(pixel_length)
 	{
 		case 1:
-			DrawHullInFile<GreyColor, agg::pixfmt_gray8>(fp);
+			DrawHullInFile<GrayColor, agg::pixfmt_gray8>(fp);
 			break;
 		case 2:
-			DrawHullInFile<GreyColor, agg::pixfmt_gray16>(fp);
+			DrawHullInFile<GrayColor, agg::pixfmt_gray16>(fp);
 			break;
 		case 3:						   
 			DrawHullInFile<RgbaColor, agg::pixfmt_rgb24>(fp);

@@ -12,7 +12,7 @@ class ColorFilteredPointProvider
 private:
 	ColorEvaluatorT &evaluator_;
 	PointLoaderT &point_loader_;
-
+	const ColorFilteredPointProvider &operator=(const ColorFilteredPointProvider&);
 public:
 	ColorFilteredPointProvider(ColorEvaluatorT &evaluator, PointLoaderT &point_loader)
 		:evaluator_(evaluator), point_loader_(point_loader)

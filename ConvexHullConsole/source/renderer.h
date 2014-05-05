@@ -6,6 +6,7 @@
 #include <tuple>
 #include <limits>
 
+#pragma warning(push, 3)
 #include "agg_rendering_buffer.h"
 #include "agg_pixfmt_rgb.h"
 #include "agg_pixfmt_rgba.h"
@@ -17,6 +18,7 @@
 #include "agg_path_storage.h"
 #include "agg_conv_stroke.h"
 #include "agg_renderer_scanline.h"
+#pragma warning(pop)
 
 #include "point.h"
 #include "ch_exception.h"
@@ -83,7 +85,7 @@ private:
 	agg::path_storage path_storage_;
 
 public:
-	Renderer(unsigned char *buffer, int width, int height, int pixel_length, int stride):
+	Renderer(unsigned char *buffer, int width, int height, int stride):
 		agg_buffer_(buffer, width, height, stride), pixel_format_(agg_buffer_), path_storage_()
 	{
 	}
